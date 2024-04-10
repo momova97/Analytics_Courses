@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/mhmov/Desktop/movahedi_ITC6000_FinalProject.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5031"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,11:maintblComments"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="sqlite_sequence" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="158"/><column index="2" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tblArticles" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="51"/><column index="2" value="170"/><column index="3" value="72"/><column index="4" value="89"/><column index="5" value="69"/><column index="6" value="96"/><column index="7" value="59"/><column index="9" value="52"/><column index="10" value="72"/><column index="11" value="96"/><column index="12" value="75"/><column index="13" value="50"/><column index="14" value="106"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tblAuthors" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="156"/><column index="2" value="43"/><column index="3" value="58"/><column index="4" value="88"/><column index="5" value="50"/><column index="6" value="75"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tblComments" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="5" mode="0"/></sort><column_widths><column index="1" value="70"/><column index="2" value="101"/><column index="3" value="59"/><column index="4" value="137"/><column index="5" value="141"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tblInspectors" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="4" mode="0"/></sort><column_widths><column index="1" value="94"/><column index="2" value="43"/><column index="3" value="97"/><column index="4" value="85"/><column index="5" value="125"/><column index="6" value="50"/><column index="7" value="75"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tblScholars" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="94"/><column index="2" value="43"/><column index="3" value="88"/><column index="4" value="98"/><column index="5" value="75"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="Insert Table.sql">PRAGMA foreign_keys = 0;
+INSERT INTO tblComments (Text,likes,Dislikes,Writer)
+VALUES ('The quick brown fox jumps over the lazy dog',10,15, 'Mark Dunn');
+INSERT INTO tblComments (Text,likes,Dislikes,Writer,ArticleID)
+VALUES ('so good ',100,11, 'Caesar Rodney','Declaration of Independence');
+INSERT INTO tblScholars (EmailAddress,Name,FieldOfStudy,SavedArticles,Comments)
+VALUES ('a@gmail.com','Mark','IT', 'Declaration of Independence',4);
+INSERT INTO tblInspectors (EmailAddress,Name,ReferredFrom,InspectorID,ArticlesWorkedOn,Rating,Comments)
+VALUES ('b@gmail.com','Rex','Randy',1,'Declaration of Independence',5,'The unanimous Declaration of the thirteen united States of America');
+INSERT INTO tblAuthors (AcademicEmailAddress,Name,Articles,FieldOfStudy,Rating)
+VALUES ('c@gmail.com','alexander hamilton','Declaration of Independenc','theater',5);
+INSERT INTO tblArticles (&quot;Name&quot;,&quot;Summary &quot;,&quot;Introduction&quot;,&quot;Objective&quot;,&quot;Methodology &quot;,&quot;Findings&quot;,&quot;DatePublished&quot;,&quot;Citedin&quot;,&quot;CitedFrom&quot;,&quot;AuthorsName&quot;,&quot;Comments&quot;,&quot;Rating&quot;,&quot;InspectorID&quot;)
+VALUES ('Declaration of Independence','he unanimous Declaration of the thirteen united States of America','We hold these truths to be self-evident','all men are created equal',' whenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it','let Facts be submitted to a candid world','2020/2/2','the Rotunda at the National Archives Museum','Wikipedia','c@gmail.com',3,5,1);
+PRAGMA foreign_keys = 1;</sql><sql name="Author by Article.sql">SELECT tblAuthors.Name ,AcademicEmailAddress
+
+FROM tblAuthors
+
+JOIN tblArticles
+on tblArticles.AuthorsEmail = tblAuthors.AcademicEmailAddress
+
+WHERE tblArticles.Name = 'Declaration of Independence'</sql><sql name="Scholar by Article.sql">SELECT tblScholars.Name , tblScholars.EmailAddress
+
+FROM tblScholars
+
+JOIN tblArticles
+on tblArticles.Name = tblScholars.SavedArticles
+
+WHERE tblArticles.Name = 'Declaration of Independence'</sql><sql name="Inspector by Article.sql">SELECT tblInspectors.Name,tblInspectors.EmailAddress
+
+FROM tblInspectors
+JOIN tblArticles
+ON tblArticles.InspectorID = tblInspectors.InspectorID
+
+WHERE tblArticles.Name = 'Declaration of Independence'</sql><sql name="Author of Article by Comment.sql">SELECT tblAuthors.Name , tblAuthors.AcademicEmailAddress
+
+FROM tblAuthors
+
+JOIN tblArticles
+on tblArticles.AuthorsEmail = tblAuthors.AcademicEmailAddress
+
+JOIN tblComments
+on tblComments.ArticleID = tblArticles.Name
+
+WHERE tblComments.ArticleID = 'Declaration of Independence'</sql><sql name="Article Rating by Inspector Rating.sql">SELECT tblArticles.Name , tblArticles.Rating
+
+FROM tblArticles
+JOIN tblInspectors
+ON tblArticles.InspectorID = tblInspectors.InspectorID
+
+WHERE tblInspectors.Rating &gt;= 3</sql><current_tab id="5"/></tab_sql></sqlb_project>
